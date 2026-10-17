@@ -10,7 +10,7 @@ Modelo de amenaza (de `SECURITY.md`): entrada no confiable = salida de terminal,
 
 | # | Superficie | Pregunta | Estado |
 | --- | --- | --- | --- |
-| A1 | Herramientas IA | ¿Prompt injection ejecuta sin aprobación? ¿Bypass path guard / deny-list? | En curso |
+| A1 | Herramientas IA | ¿Prompt injection ejecuta sin aprobación? ¿Bypass path guard / deny-list? | Revisada. Hardening abajo; resto en privado |
 | A2 | Comandos IPC Tauri | ¿Validan rutas contra `WorkspaceRegistry`? ¿Capabilities mínimas? | Pendiente |
 | A3 | OSC 52/8/7 | Portapapeles sin permiso, enlaces peligrosos, cwd falso | Pendiente |
 | A4 | Red y preview | Proxy, CSP, orígenes alcanzables | Pendiente |
@@ -53,4 +53,43 @@ Por área: checklist de comportamiento esperado (referencia iTerm/Warp/VS Code),
 
 ## Hallazgos
 
-(ninguno todavía)
+### A-1: write guard no cubre ficheros de persistencia de usuario
+- Área / severidad: seguridad (hardening) / media
+- Ubicación: `src/modules/ai/lib/security.ts:106-125`
+- Problema: prefijos anclados a raíz. `~/Library/LaunchAgents`, `~/Library/LaunchDaemons`, `~/.zshrc`, `~/.bashrc`, `~/.gitconfig`, `/Applications` pasan `checkWritable`. Sigue haciendo falta aprobación.
+- Propuesta: cubrir variantes de usuario; test en `security.test.ts`.
+- Estado: abierto
+
+### A-2: open_preview acepta cualquier puerto loopback sin aprobación
+- Área / severidad: seguridad (hardening) / baja
+- Ubicación: `src/modules/ai/tools/terminal.ts:63-93`
+- Propuesta: aprobación si el puerto no es de un `bash_background` activo.
+- Estado: abierto
+
+### A-3: plan mode solo por prompt; applyAll no recomprueba
+- Área / severidad: seguridad (hardening) / baja
+- Ubicación: `agent.ts:301-302`, `tools/shell.ts`, `planStore.applyAll`
+- Propuesta: bloquear `bash_*` con plan activo; `checkWritableCanonical` en apply.
+- Estado: abierto
+
+### A-4: spawn_coding_agent no filtra control chars
+- Área / severidad: seguridad (hardening) / baja
+- Ubicación: `useAiLiveBridge.ts` (~120-155)
+- Problema: `\x1b[201~` embebido cierra bracketed paste. `send_to_agent` sí filtra.
+- Propuesta: reutilizar `hasControlChars`.
+- Estado: abierto
+
+### A-5: bash_logs / bash_kill no ligados a la sesión de chat
+- Área / severidad: seguridad (hardening) / baja
+- Ubicación: `src-tauri/src/.../shell/mod.rs` (~187-215)
+- Propuesta: guardar sessionId dueño en `BackgroundProc`.
+- Estado: abierto
+
+### A-6: deny-list de shell es conveniencia, no frontera
+- Área / severidad: seguridad (hardening) / baja
+- Problema: `rm -rf /*`, `rm -r -f /`, `bash <(curl …)`, `| /bin/sh`, `| python3` pasan. El código ya dice que el usuario es el gate.
+- Propuesta: ampliar patrones obvios con tests. Prioridad baja.
+- Estado: abierto
+
+### Refutado en A1 (no volver a comprobar)
+`..`, mayúsculas, `.SSH`, ADS, punto/espacio final, `\\?\`; symlink a ruta protegida (canonicaliza); escritura vía symlink colgante; subagentes (solo lectura); ejecución antes de aprobar; auto-approve (no existe); imagen markdown zero-click (CSP `img-src`); XSS markdown (sanitize + CSP); sentinel shell; preview no loopback.

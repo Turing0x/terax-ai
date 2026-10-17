@@ -8,7 +8,7 @@
 | --- | --- |
 | 1. Conocer el proyecto (docs, stack, arquitectura) | Hecho |
 | 2. PR de sincronización de documentación | Abierto (#1358) |
-| 3a. Auditoría de seguridad (A1-A7), `AUDIT.md` | En curso: A1 herramientas IA |
+| 3a. Auditoría de seguridad (A1-A7), `AUDIT.md` | A1 hecha (6 hardening públicos, 6 privados). Siguiente: informe privado, luego A2 |
 | 3b. Auditoría funcional (8 áreas de uso diario) | Pendiente |
 | 4. PRs pequeños a partir de la auditoría | Pendiente |
 | 5. Funcionalidad: atajo terminal en home (#1359) | Lista, probada. Falta OK del mantenedor para abrir PR |
@@ -40,3 +40,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-17: feature `tab.newHome` implementada en `feat/new-terminal-home`. Lint/types/tests OK. Issue #1359 abierto.
 - 2026-10-17: `tab.newHome` probada a mano, funciona. Marcada lista. Siguiente funcionalidad la define Turing0x.
 - 2026-10-17: reordenada auditoría: A seguridad acotada, B funcional por recorridos de usuario. Inicio A1.
+- 2026-10-17: A1 completada. Hardening A-1..A-6 en AUDIT.md. Hallazgos explotables en privado.
