@@ -604,6 +604,10 @@ export default function App() {
     newTab(inheritedCwdForNewTab());
   }, [newTab, inheritedCwdForNewTab]);
 
+  const openNewHomeTab = useCallback(() => {
+    newTab(home ?? undefined);
+  }, [newTab, home]);
+
   const openNewPrivateTab = useCallback(() => {
     newPrivateTab(inheritedCwdForNewTab());
   }, [newPrivateTab, inheritedCwdForNewTab]);
@@ -896,6 +900,7 @@ export default function App() {
       "commandPalette.open": () => openCommandPalette("commands"),
       "commandPalette.content": () => openCommandPalette("content"),
       "tab.new": openNewTab,
+      "tab.newHome": openNewHomeTab,
       "tab.newBlock": openNewBlockTab,
       "tab.newPrivate": openNewPrivateTab,
       "tab.newPreview": () => openPreviewTab(""),
@@ -970,6 +975,7 @@ export default function App() {
       cycleSpace,
       handleCloseTabOrPane,
       openNewTab,
+      openNewHomeTab,
       openNewBlockTab,
       openNewPrivateTab,
       openPreviewTab,
@@ -1264,6 +1270,7 @@ export default function App() {
             explorerRoot,
             home,
             openNewTab,
+            openNewHome: openNewHomeTab,
             openNewBlock: openNewBlockTab,
             openNewPrivate: openNewPrivateTab,
             openNewEditor: () => setNewEditorOpen(true),
@@ -1296,6 +1303,7 @@ export default function App() {
       explorerRoot,
       home,
       openNewTab,
+      openNewHomeTab,
       openNewBlockTab,
       openNewPrivateTab,
       openPreviewTab,

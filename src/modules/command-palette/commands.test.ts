@@ -29,6 +29,7 @@ function baseContext(
     spaces: [],
     activeSpaceId: null,
     openNewTab: noop,
+    openNewHome: noop,
     openNewBlock: noop,
     openNewPrivate: noop,
     openNewEditor: noop,
@@ -60,6 +61,13 @@ function reasonById(over: Partial<CommandPaletteActionContext>, id: string) {
 }
 
 describe("createCommandItems", () => {
+  it("runs the home terminal command through its handler", () => {
+    let calls = 0;
+    const items = createCommandItems(baseContext({ openNewHome: () => calls++ }));
+    items.find((i) => i.id === "tab.newHome")?.run();
+    expect(calls).toBe(1);
+  });
+
   it("enables split on a terminal tab below the pane limit", () => {
     expect(reasonById({}, "pane.splitRight")).toBeUndefined();
     expect(reasonById({}, "pane.splitDown")).toBeUndefined();

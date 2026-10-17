@@ -8,6 +8,7 @@ export type ShortcutId =
   | "commandPalette.open"
   | "commandPalette.content"
   | "tab.new"
+  | "tab.newHome"
   | "tab.newBlock"
   | "tab.newPrivate"
   | "tab.newPreview"
@@ -103,6 +104,12 @@ export const SHORTCUTS: Shortcut[] = [
     label: "New tab",
     group: "Tabs",
     defaultBindings: [{ [MOD_PROP]: true, key: "t" }],
+  },
+  {
+    id: "tab.newHome",
+    label: "New terminal in home",
+    group: "Tabs",
+    defaultBindings: [{ [MOD_PROP]: true, alt: true, key: "t" }],
   },
   {
     id: "tab.newBlock",
