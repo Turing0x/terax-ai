@@ -31,7 +31,7 @@ pnpm tauri build --bundles app --config '{
   "productName": "Terax Local",
   "identifier": "app.crynta.terax.local",
   "bundle": {"createUpdaterArtifacts": false},
-  "plugins": {"updater": {"endpoints": ["http://127.0.0.1:9/latest.json"]}}
+  "plugins": {"updater": {"endpoints": ["https://127.0.0.1:9/latest.json"]}}
 }'
 
 APP="src-tauri/target/release/bundle/macos/Terax Local.app"
