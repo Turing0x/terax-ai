@@ -58,7 +58,7 @@ Por área: checklist de comportamiento esperado (referencia iTerm/Warp/VS Code),
 - Ubicación: `src/modules/ai/lib/security.ts:106-125`
 - Problema: prefijos anclados a raíz. `~/Library/LaunchAgents`, `~/Library/LaunchDaemons`, `~/.zshrc`, `~/.bashrc`, `~/.gitconfig`, `/Applications` pasan `checkWritable`. Sigue haciendo falta aprobación.
 - Propuesta: cubrir variantes de usuario; test en `security.test.ts`.
-- Estado: abierto
+- Estado: PR #1360
 
 ### A-2: open_preview acepta cualquier puerto loopback sin aprobación
 - Área / severidad: seguridad (hardening) / baja

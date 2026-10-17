@@ -17,6 +17,7 @@
 
 | PR | Título | Rama | Estado | Notas |
 | --- | --- | --- | --- | --- |
+| [#1360](https://github.com/crynta/terax-ai/pull/1360) | security(ai): block agent writes to user persistence paths | `security/ai-write-guard-user-paths` | Abierto | A-1. Worktree ../terax-ai-write-guard |
 | [#1358](https://github.com/crynta/terax-ai/pull/1358) | docs: sync architecture docs with the current code | `docs/sync-architecture-docs` | Abierto, CodeRabbit pendiente | 9 ficheros, +57/-27. Excluye README (lo cubre #1307 de otro contribuidor) y traducciones |
 
 ## PRs ajenos relevantes
@@ -41,3 +42,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-17: `tab.newHome` probada a mano, funciona. Marcada lista. Siguiente funcionalidad la define Turing0x.
 - 2026-10-17: reordenada auditoría: A seguridad acotada, B funcional por recorridos de usuario. Inicio A1.
 - 2026-10-17: A1 completada. Hardening A-1..A-6 en AUDIT.md. Hallazgos explotables en privado.
+- 2026-10-17: PR #1360 (A-1) abierto. Informe privado A1 redactado, pendiente de envío por Turing0x.
