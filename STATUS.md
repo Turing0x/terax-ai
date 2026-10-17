@@ -10,7 +10,7 @@
 | 2. PR de sincronización de documentación | Abierto (#1358) |
 | 3. Auditoría detallada, documentada en `AUDIT.md` | Pendiente |
 | 4. PRs pequeños a partir de la auditoría | Pendiente |
-| 5. Funcionalidad que falta (la define Turing0x) | Pendiente: abrir issue o hablar en Discord antes del PR |
+| 5. Funcionalidad: atajo terminal en home (#1359) | Lista, probada. Falta OK del mantenedor para abrir PR |
 
 ## PRs
 
@@ -31,9 +31,10 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 
 1. Atender comentarios de CodeRabbit / mantenedor en #1358.
 2. Arrancar la auditoría (orden propuesto en `AUDIT.md`).
-3. Feature elegida: atajo Cmd/Ctrl+Alt+T, terminal en `~`. Issue crynta/terax-ai#1359 abierto, esperando respuesta del mantenedor. Implementación lista en rama local `feat/new-terminal-home` (commit 729f826, sin push). Al recibir OK: worktree desde `origin/main`, cherry-pick, push a `fork`, PR.
+3. Feature elegida: atajo Cmd/Ctrl+Alt+T, terminal en `~`. Issue crynta/terax-ai#1359 abierto, esperando respuesta del mantenedor. Implementación LISTA y verificada manualmente por Turing0x (funciona perfecto). Rama `feat/new-terminal-home` (commit 729f826) ya en `fork`. Al recibir OK: worktree desde `origin/main`, cherry-pick, push a `fork`, PR.
 
 ## Registro
 
 - 2026-10-17: lectura completa de docs. Verificación docs vs código. Fork `Turing0x/terax-ai` creado. PR #1358 abierto. Rama `contrib-notes` creada para estas notas.
 - 2026-10-17: feature `tab.newHome` implementada en `feat/new-terminal-home`. Lint/types/tests OK. Issue #1359 abierto.
+- 2026-10-17: `tab.newHome` probada a mano, funciona. Marcada lista. Siguiente funcionalidad la define Turing0x.
