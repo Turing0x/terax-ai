@@ -1,0 +1,38 @@
+# Estado
+
+Última actualización: 2026-10-17. Upstream en `1a68067` (v0.9.0, publicada 2026-10-16).
+
+## Plan
+
+| Fase | Estado |
+| --- | --- |
+| 1. Conocer el proyecto (docs, stack, arquitectura) | Hecho |
+| 2. PR de sincronización de documentación | Abierto (#1358) |
+| 3. Auditoría detallada, documentada en `AUDIT.md` | Pendiente |
+| 4. PRs pequeños a partir de la auditoría | Pendiente |
+| 5. Funcionalidad que falta (la define Turing0x) | Pendiente: abrir issue o hablar en Discord antes del PR |
+
+## PRs
+
+| PR | Título | Rama | Estado | Notas |
+| --- | --- | --- | --- | --- |
+| [#1358](https://github.com/crynta/terax-ai/pull/1358) | docs: sync architecture docs with the current code | `docs/sync-architecture-docs` | Abierto, CodeRabbit pendiente | 9 ficheros, +57/-27. Excluye README (lo cubre #1307 de otro contribuidor) y traducciones |
+
+## PRs ajenos relevantes
+
+- [#1307](https://github.com/crynta/terax-ai/pull/1307): README xterm.js -> libghostty. Por eso no tocamos README.
+- [#1255](https://github.com/crynta/terax-ai/pull/1255): deny de aprobaciones pendientes en IA. Revisar antes de auditar el flujo de aprobación.
+- [#1306](https://github.com/crynta/terax-ai/pull/1306): inyección de `cd` en procesos en primer plano. Revisar antes de auditar terminal.
+
+Antes de trabajar en un área, buscar PRs abiertos que la toquen:
+`gh pr list -R crynta/terax-ai --state open --search "<área>"`.
+
+## Próximos pasos
+
+1. Atender comentarios de CodeRabbit / mantenedor en #1358.
+2. Arrancar la auditoría (orden propuesto en `AUDIT.md`).
+3. Turing0x define la funcionalidad que falta.
+
+## Registro
+
+- 2026-10-17: lectura completa de docs. Verificación docs vs código. Fork `Turing0x/terax-ai` creado. PR #1358 abierto. Rama `contrib-notes` creada para estas notas.
