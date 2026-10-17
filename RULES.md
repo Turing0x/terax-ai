@@ -19,6 +19,12 @@ Resumen de `CONTRIBUTING.md` y `TERAX.md`. Incumplirlas suele acabar en PR cerra
 - Seguridad: validar en cada frontera (IPC, fs, red, herramientas de IA). Nunca saltarse la deny-list ni el `WorkspaceRegistry`.
 - Paridad de plataformas: macOS / Linux / Windows / WSL. Rutas con `.split(/[\\/]/)`; Enter es `\r`.
 
+## Seguridad (`SECURITY.md`)
+
+- Vulnerabilidades: email privado a security@terax.app, nunca issue o PR público. Incluir impacto, reproducción, versión, OS y arquitectura.
+- Hardening sin impacto explotable: PR público con prefijo `security/` y título `security(<scope>): ...`. El texto del PR no debe insinuar vulnerabilidades pendientes.
+- Fuera de alcance: atacante local con shell, bugs de dependencias upstream, versiones < 0.5.
+
 ## Tests obligatorios
 
 Cambios en spawn de shell/terminal, autorización de workspace, capa git, mutación de fs,

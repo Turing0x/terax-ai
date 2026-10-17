@@ -8,9 +8,9 @@
 | --- | --- |
 | 1. Conocer el proyecto (docs, stack, arquitectura) | Hecho |
 | 2. PR de sincronización de documentación | Abierto (#1358) |
-| 3a. Auditoría de seguridad (A1-A7), `AUDIT.md` | A1 hecha (6 hardening públicos, 6 privados). Siguiente: informe privado, luego A2 |
+| 3a. Auditoría de seguridad (A1-A7), `AUDIT.md` | A1 hecha: A-1 en PR #1360, A-2..A-6 pendientes de PR; informe privado redactado, pendiente de envío. Siguiente: A2 IPC |
 | 3b. Auditoría funcional (8 áreas de uso diario) | Pendiente |
-| 4. PRs pequeños a partir de la auditoría | Pendiente |
+| 4. PRs pequeños a partir de la auditoría | En curso (#1360) |
 | 5. Funcionalidad: atajo terminal en home (#1359) | Lista, probada. Falta OK del mantenedor para abrir PR |
 
 ## PRs
@@ -31,9 +31,18 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 
 ## Próximos pasos
 
-1. Atender comentarios de CodeRabbit / mantenedor en #1358.
-2. Auditoría: fase A seguridad (A1 en curso), luego fase B funcional. Hallazgos explotables solo en `../terax-private/` (fuera de git).
-3. Feature elegida: atajo Cmd/Ctrl+Alt+T, terminal en `~`. Issue crynta/terax-ai#1359 abierto, esperando respuesta del mantenedor. Implementación LISTA y verificada manualmente por Turing0x (funciona perfecto). Rama `feat/new-terminal-home` (commit 729f826) ya en `fork`. Al recibir OK: worktree desde `origin/main`, cherry-pick, push a `fork`, PR.
+1. Turing0x: revisar y enviar el informe privado A1 a security@terax.app (borrador en `../terax-private/`). Anotar fecha de envío allí.
+2. Seguir #1358 y #1360 (CodeRabbit / mantenedor). En #1360 falta la prueba manual en `pnpm tauri dev`.
+3. Auditoría A2: comandos IPC de Tauri (validación de rutas, `WorkspaceRegistry`, capabilities). Luego A3-A7 y fase B funcional.
+4. PRs de hardening A-2..A-6 (ver `AUDIT.md`), uno por PR. Esperar respuesta del mantenedor al informe privado antes de los que toquen el flujo de aprobación.
+5. Feature `tab.newHome` (#1359): esperando OK del mantenedor. Rama `feat/new-terminal-home` (729f826) en `fork`. Al recibir OK: worktree desde `origin/main`, cherry-pick, push, PR.
+
+## Decisiones y lecciones
+
+- Hallazgos explotables: nunca en esta rama (es pública). Solo en `../terax-private/` (fuera de git) hasta que haya fix publicado. Informe por email, lo envía Turing0x.
+- No construimos pruebas de concepto de explotación. Los informes van con `fichero:línea`, impacto y propuesta de fix.
+- Un solo agente por worktree. Un agente interrumpido puede seguir vivo en segundo plano: comprobar con ListAgents y pararlo antes de relanzar. (En A-1 dos agentes escribieron a la vez; se resolvió con reset a `origin/main` y reimplementación limpia.)
+- No ejecutar `biome format --write` sobre ficheros enteros: mete reformateo ajeno al PR.
 
 ## Registro
 
@@ -43,3 +52,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-17: reordenada auditoría: A seguridad acotada, B funcional por recorridos de usuario. Inicio A1.
 - 2026-10-17: A1 completada. Hardening A-1..A-6 en AUDIT.md. Hallazgos explotables en privado.
 - 2026-10-17: PR #1360 (A-1) abierto. Informe privado A1 redactado, pendiente de envío por Turing0x.
+- 2026-10-17: kit de PoC de S1 borrado. Notas consolidadas (decisiones y lecciones). Pausa antes de A2.

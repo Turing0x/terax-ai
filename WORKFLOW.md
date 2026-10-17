@@ -2,7 +2,7 @@
 
 ## Repos y remotes
 
-- Checkout principal: `~/LocalProjects/terax-ai` (rama `main`).
+- Checkout principal: `~/LocalProjects/terax-ai` (rama `local/mine`: upstream + cambios propios de Turing0x).
   - `origin` -> `https://github.com/crynta/terax-ai.git` (upstream, solo lectura para nosotros).
   - `fork` -> `https://github.com/Turing0x/terax-ai.git` (nuestro fork).
 - El checkout principal tiene cambios propios sin commitear en `package.json` y `pnpm-lock.yaml`
@@ -13,9 +13,14 @@
 
 | Ruta | Rama | Uso |
 | --- | --- | --- |
-| `~/LocalProjects/terax-ai` | `main` | Uso diario, cambios locales de Turing0x |
+| `~/LocalProjects/terax-ai` | `local/mine` | Uso diario, cambios locales de Turing0x |
 | `~/LocalProjects/terax-ai-contrib` | `contrib-notes` (huérfana) | Estas notas. Push a `fork` |
 | `~/LocalProjects/terax-ai-docs` | `docs/sync-architecture-docs` | PR #1358 |
+| `~/LocalProjects/terax-ai-write-guard` | `security/ai-write-guard-user-paths` | PR #1360 |
+
+Fuera de git: `~/LocalProjects/terax-private/` (hallazgos de seguridad privados y borradores de informe). Nunca copiar su contenido a esta rama ni a PRs.
+
+Un solo agente por worktree a la vez.
 
 ## Nuevo PR
 
