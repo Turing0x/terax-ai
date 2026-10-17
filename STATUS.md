@@ -31,8 +31,9 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 
 1. Atender comentarios de CodeRabbit / mantenedor en #1358.
 2. Arrancar la auditoría (orden propuesto en `AUDIT.md`).
-3. Turing0x define la funcionalidad que falta.
+3. Feature elegida: atajo Cmd/Ctrl+Alt+T, terminal en `~`. Issue crynta/terax-ai#1359 abierto, esperando respuesta del mantenedor. Implementación lista en rama local `feat/new-terminal-home` (commit 729f826, sin push). Al recibir OK: worktree desde `origin/main`, cherry-pick, push a `fork`, PR.
 
 ## Registro
 
 - 2026-10-17: lectura completa de docs. Verificación docs vs código. Fork `Turing0x/terax-ai` creado. PR #1358 abierto. Rama `contrib-notes` creada para estas notas.
+- 2026-10-17: feature `tab.newHome` implementada en `feat/new-terminal-home`. Lint/types/tests OK. Issue #1359 abierto.
