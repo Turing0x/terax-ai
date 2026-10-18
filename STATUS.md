@@ -10,7 +10,7 @@
 | 2. PR de sincronización de documentación | Abierto (#1358) |
 | 3a. Auditoría de seguridad (A1-A7), `AUDIT.md` | A1 hecha: A-1 en PR #1360, A-2..A-6 pendientes de PR; informe privado redactado, pendiente de envío. Siguiente: A2 IPC |
 | 3b. Auditoría funcional (8 áreas de uso diario) | Áreas 6 y 7 hechas (F-1..F-14 en `AUDIT.md`). Resto pendiente |
-| 4. PRs pequeños a partir de la auditoría | En curso (#1360). Ola 1 B6/B7 (P1-P4) en implementación; issue #1366 (P5) abierto |
+| 4. PRs pequeños a partir de la auditoría | En curso (#1360). Ola 1 B6/B7 abierta: #1367-#1370; issue #1366 (P5) esperando respuesta |
 | 5. Funcionalidad: atajo terminal en home (#1359) | Lista, probada. Falta OK del mantenedor para abrir PR |
 
 ## PRs
@@ -24,10 +24,10 @@
 
 | PR | Hallazgo | Rama | Worktree | Estado |
 | --- | --- | --- | --- | --- |
-| P1 | F-4 | `fix/git-log-merge-pagination` | ../terax-ai-git-log-pagination | listo, verificado (`3f4e4f6`), falta OK para push/PR |
-| P2 | F-8 | `fix/fs-write-through-symlink` | ../terax-ai-write-symlink | listo, verificado (`1ea4e75`), falta OK para push/PR |
-| P3 | F-9 | `fix/editor-rename-keeps-edits` | ../terax-ai-rename-dirty | listo, verificado (`24e0adb`), falta OK para push/PR |
-| P4 | F-5 | `fix/git-commit-timeout` | ../terax-ai-commit-timeout | listo, verificado (`3b192e0`), falta OK para push/PR |
+| P1 | F-4 | `fix/git-log-merge-pagination` | ../terax-ai-git-log-pagination | PR #1367 abierto (`3f4e4f6`) |
+| P2 | F-8 | `fix/fs-write-through-symlink` | ../terax-ai-write-symlink | PR #1368 abierto (`1ea4e75`) |
+| P3 | F-9 | `fix/editor-rename-keeps-edits` | ../terax-ai-rename-dirty | PR #1369 abierto (`24e0adb`), falta prueba manual |
+| P4 | F-5 | `fix/git-commit-timeout` | ../terax-ai-commit-timeout | PR #1370 abierto (`3b192e0`) |
 
 Rust de los 4 worktrees comparte `CARGO_TARGET_DIR` del checkout principal (ahorro de disco). `node_modules` de los worktrees es symlink al principal (lockfile idéntico a upstream).
 
@@ -69,3 +69,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-18: plan de implementación B6/B7 en `PLAN.md` (4 olas, P1-P10 + 4 issues UX).
 - 2026-10-18: issue #1366 abierto (diseño P5, Source Control en tiempo real). Ola 1 lanzada en paralelo: 4 worktrees, un implementador por PR.
 - 2026-10-18: ola 1 implementada y verificada (verificador independiente + clippy/tests). P1 rediseñado a paginación anclada al commit más reciente cargado. clippy y rustfmt instalados con OK de Turing0x.
+- 2026-10-18: ola 1 subida a fork y PRs abiertos: #1367 (P1), #1368 (P2), #1369 (P3), #1370 (P4).
