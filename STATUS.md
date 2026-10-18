@@ -24,10 +24,10 @@
 
 | PR | Hallazgo | Rama | Worktree | Estado |
 | --- | --- | --- | --- | --- |
-| P1 | F-4 | `fix/git-log-merge-pagination` | ../terax-ai-git-log-pagination | implementando |
-| P2 | F-8 | `fix/fs-write-through-symlink` | ../terax-ai-write-symlink | implementando |
-| P3 | F-9 | `fix/editor-rename-keeps-edits` | ../terax-ai-rename-dirty | implementando |
-| P4 | F-5 | `fix/git-commit-timeout` | ../terax-ai-commit-timeout | implementando |
+| P1 | F-4 | `fix/git-log-merge-pagination` | ../terax-ai-git-log-pagination | listo, verificado (`3f4e4f6`), falta OK para push/PR |
+| P2 | F-8 | `fix/fs-write-through-symlink` | ../terax-ai-write-symlink | listo, verificado (`1ea4e75`), falta OK para push/PR |
+| P3 | F-9 | `fix/editor-rename-keeps-edits` | ../terax-ai-rename-dirty | listo, verificado (`24e0adb`), falta OK para push/PR |
+| P4 | F-5 | `fix/git-commit-timeout` | ../terax-ai-commit-timeout | listo, verificado (`3b192e0`), falta OK para push/PR |
 
 Rust de los 4 worktrees comparte `CARGO_TARGET_DIR` del checkout principal (ahorro de disco). `node_modules` de los worktrees es symlink al principal (lockfile idéntico a upstream).
 
@@ -68,3 +68,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-18: auditoría B6 (explorador y editor) y B7 (git). 14 hallazgos F-1..F-14. Causa raíz del Source Control sin tiempo real: F-1. F-4 reproducido en repo de prueba.
 - 2026-10-18: plan de implementación B6/B7 en `PLAN.md` (4 olas, P1-P10 + 4 issues UX).
 - 2026-10-18: issue #1366 abierto (diseño P5, Source Control en tiempo real). Ola 1 lanzada en paralelo: 4 worktrees, un implementador por PR.
+- 2026-10-18: ola 1 implementada y verificada (verificador independiente + clippy/tests). P1 rediseñado a paginación anclada al commit más reciente cargado. clippy y rustfmt instalados con OK de Turing0x.
