@@ -21,9 +21,9 @@ Reglas para todos los PRs:
 | 2 | P5 | F-1 Source Control en tiempo real | fix | L, Rust + frontend | issue con el diseño antes |
 | 2 | P6 | F-2 diff obsoleto | fix | S, frontend | P5 (usa su señal) |
 | 2 | P7 | F-3 historial tras commit | fix | S, frontend | P5 |
-| 3 | P8 | F-7 rutas canónicas del watcher | fix | M, Rust + frontend | prueba manual |
-| 3 | P9 | F-6 PATH de git en macOS | fix | M, Rust | prueba manual |
-| 4 | I1-I4 | F-10, F-11, F-12, F-13 | UX | - | issue antes; F-12 tras prueba manual |
+| 3 | ~~P8~~ | F-7 rutas canónicas del watcher | descartado | - | no reproducido en macOS |
+| 3 | ~~P9~~ | F-6 PATH de git en macOS | descartado | - | no reproducido en macOS |
+| 4 | I1, I2, I4 | F-10, F-11, F-13 | UX | - | issue antes; I3 (F-12) descartado, no reproducido |
 | - | P10 | F-14 nombres no UTF-8 | fix | XS | prioridad baja |
 
 Ola 1: fixes pequeños, sin diseño discutible. Pueden ir en paralelo (ficheros disjuntos), un worktree por PR.
@@ -80,21 +80,21 @@ Partición posible: P5a (watcher Rust + evento, tests), P5b (suscripción fronte
 
 ## Ola 3 (necesitan prueba manual antes)
 
-### P8: rutas canónicas del watcher (F-7)
+### P8: rutas canónicas del watcher (F-7). DESCARTADO: no reproducido en macOS
 - Prueba manual: `cd /tmp && mkdir t && cd t`, abrir el explorador, `touch x` en otra terminal; la entrada no debería aparecer.
 - Cambio: `WatchSet` guarda, por clave canónica, las ortografías con que se registró (refcount por ortografía) y `fs:changed` emite esas en vez de la canónica. Ficheros: igual. Tests en `watch.rs` con directorio enlazado y con otra ortografía de mayúsculas.
 
-### P9: PATH de git en macOS (F-6)
+### P9: PATH de git en macOS (F-6). DESCARTADO: no reproducido en macOS
 - Prueba manual: abrir Terax desde el Dock y hacer commit en un repo con hook husky (`npx`), y push con credential helper `gh`.
 - Cambio: mover la captura del entorno del login shell de `lsp/env.rs` a un módulo compartido (`proc/login_env.rs`), aplicarla en `build_git_command`. La captura bloquea hasta 10 s la primera vez: calentarla en segundo plano al arrancar y no bloquear `git status` (si no está lista, usar el entorno del proceso).
 
 ## Ola 4: issues de UX (sin código hasta tener respuesta)
 - I1 F-10: borrar a la papelera del SO. Requiere dependencia (`trash`) o APIs nativas: pide aprobación de dependencia y justificar el tamaño del binario.
 - I2 F-11: aviso "cambiado en disco" / "borrado en disco" en la pestaña con buffer sucio.
-- I3 F-12: conservar cursor y scroll al recargar (tras confirmar el fallo a mano).
+- ~~I3 F-12~~: descartado, no reproducido en macOS.
 - I4 F-13: atajos del explorador (borrar, renombrar, copiar/cortar, inicio/fin).
 
 ## Pendiente de Turing0x
-- Prueba manual de F-6, F-7 y F-12 (pasos arriba).
+- ~~Prueba manual de F-6, F-7 y F-12~~: hecha 2026-10-18, no reproducidos.
 - OK para abrir el issue de diseño de P5.
 - Elegir: empezar ola 1 en paralelo (4 worktrees) o en serie.

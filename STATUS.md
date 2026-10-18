@@ -26,7 +26,7 @@
 | --- | --- | --- | --- | --- |
 | P1 | F-4 | `fix/git-log-merge-pagination` | ../terax-ai-git-log-pagination | PR #1367 abierto (`3f4e4f6`) |
 | P2 | F-8 | `fix/fs-write-through-symlink` | ../terax-ai-write-symlink | PR #1368 abierto (`1ea4e75`) |
-| P3 | F-9 | `fix/editor-rename-keeps-edits` | ../terax-ai-rename-dirty | PR #1369 abierto (`24e0adb`), falta prueba manual |
+| P3 | F-9 | `fix/editor-rename-keeps-edits` | ../terax-ai-rename-dirty | PR #1369 abierto (`24e0adb`) |
 | P4 | F-5 | `fix/git-commit-timeout` | ../terax-ai-commit-timeout | PR #1370 abierto (`3b192e0`) |
 
 Rust de los 4 worktrees comparte `CARGO_TARGET_DIR` del checkout principal (ahorro de disco). `node_modules` de los worktrees es symlink al principal (lockfile idéntico a upstream).
@@ -70,3 +70,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-18: issue #1366 abierto (diseño P5, Source Control en tiempo real). Ola 1 lanzada en paralelo: 4 worktrees, un implementador por PR.
 - 2026-10-18: ola 1 implementada y verificada (verificador independiente + clippy/tests). P1 rediseñado a paginación anclada al commit más reciente cargado. clippy y rustfmt instalados con OK de Turing0x.
 - 2026-10-18: ola 1 subida a fork y PRs abiertos: #1367 (P1), #1368 (P2), #1369 (P3), #1370 (P4).
+- 2026-10-18: Turing0x probó a mano P1-P4 en macOS: OK, casillas marcadas en los PRs. F-6, F-7 y F-12 no se reproducen: P8, P9 e I3 descartados.

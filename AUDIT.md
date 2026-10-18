@@ -145,6 +145,9 @@ Solo existe un watcher nativo (`fs/watch.rs`) y lo usan el explorador (directori
 - Estado: abierto
 
 ### F-6: git hereda el PATH mínimo de la app GUI en macOS
+
+**Estado (2026-10-18): no reproducido.** Turing0x lo probó a mano en macOS y funciona bien. Sin PR.
+
 - Área / severidad: corrección / media
 - Ubicación: `src-tauri/src/modules/git/process.rs:304-328`
 - Problema: `run_git` lanza `git` con el entorno del proceso. Lanzada desde el Dock, la app tiene un PATH mínimo (el módulo LSP ya lo resuelve con `lsp/env.rs`). Los hooks que llaman a `node`/`npx`, los credential helpers en Homebrew (`gh auth git-credential`) y `gpg` para firmar fallarían desde el panel aunque funcionen en la terminal.
@@ -153,6 +156,9 @@ Solo existe un watcher nativo (`fs/watch.rs`) y lo usan el explorador (directori
 - Estado: abierto
 
 ### F-7: el explorador y los editores no se actualizan bajo symlinks o con mayúsculas distintas
+
+**Estado (2026-10-18): no reproducido.** Turing0x lo probó a mano en macOS y funciona bien. Sin PR.
+
 - Área / severidad: corrección / alta
 - Ubicación: `src-tauri/src/modules/fs/watch.rs:192-222` (claves canónicas), `src/modules/explorer/lib/useFileTree.ts:332-340`, `src/modules/editor/useEditorFileSync.ts:92-99`
 - Problema: el watcher registra y emite rutas canónicas (`std::fs::canonicalize`, que resuelve symlinks y corrige mayúsculas en macOS). El árbol y las pestañas guardan la ruta tal como llega del cwd de la terminal (OSC 7, ruta lógica). No coinciden: `cd /tmp/x` (canónica `/private/tmp/x`), un `~/code` que es symlink, o `cd ~/projects` cuando el directorio es `Projects`. En esos casos ni el árbol ni los editores abiertos se refrescan nunca por cambios externos. Verificado: `realpath` devuelve `CaseDir` para `casedir` y `/private/tmp` para `/tmp`.
@@ -193,6 +199,9 @@ Solo existe un watcher nativo (`fs/watch.rs`) y lo usan el explorador (directori
 - Estado: abierto (issue antes)
 
 ### F-12: la recarga externa podría perder cursor y scroll
+
+**Estado (2026-10-18): no reproducido.** Turing0x lo probó a mano en macOS y funciona bien. Sin PR.
+
 - Área / severidad: UX / media
 - Ubicación: `src/modules/editor/EditorPane.tsx:655-658`
 - Problema: al recargar, el nuevo contenido entra por la prop `value` de `@uiw/react-codemirror`, que sustituye el documento entero. Es probable que el cursor salte y se pierda la posición de scroll en cada cambio externo (formatter de terminal, git checkout, agente).
