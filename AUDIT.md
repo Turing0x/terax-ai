@@ -216,6 +216,14 @@ Solo existe un watcher nativo (`fs/watch.rs`) y lo usan el explorador (directori
 - Verificación: código
 - Estado: abierto
 
+### F-15: un timeout de git deja vivos los procesos de los hooks
+- Área / severidad: corrección / baja
+- Ubicación: `src-tauri/src/modules/proc/capture.rs:133-137`, `git/process.rs` `build_git_command`
+- Problema: al expirar, `capture::run` mata solo a `git`. Sin grupo de procesos (Unix) ni `ProcessJob` (Windows), los hooks (sh, node lint-staged) quedan huérfanos y pueden seguir tocando el árbol o el index.
+- Propuesta: grupo de procesos + killpg en Unix y `ProcessJob` en Windows, como `lsp/session.rs`. PR aparte.
+- Verificación: código (lo encontró la revisión de P4)
+- Estado: abierto
+
 ### Ya cubierto por issues/PRs upstream (no duplicar)
 Doble clic renombra en vez de abrir (#541, PR #621). Editor no se recarga tras discard (#988, PR #1251). Explorer y Source Control al cambiar de space (#1159, PR #1250). Scroll horizontal del árbol (#616). Zoom escala el árbol (#768, PR #786). Worktrees (#1101, #856). Ramas desde el panel (#767). Vista en árbol del panel (#1086, PR #543). Gutter git en el editor (#921). Diff lado a lado (#534, PR #926). Abrir con la app por defecto (#588, PR #620).
 
