@@ -9,7 +9,7 @@
 | 1. Conocer el proyecto (docs, stack, arquitectura) | Hecho |
 | 2. PR de sincronización de documentación | Abierto (#1358) |
 | 3a. Auditoría de seguridad (A1-A7), `AUDIT.md` | A1 hecha: A-1 en PR #1360, A-2..A-6 pendientes de PR; informe privado redactado, pendiente de envío. Siguiente: A2 IPC |
-| 3b. Auditoría funcional (8 áreas de uso diario) | Pendiente |
+| 3b. Auditoría funcional (8 áreas de uso diario) | Áreas 6 y 7 hechas (F-1..F-14 en `AUDIT.md`). Resto pendiente |
 | 4. PRs pequeños a partir de la auditoría | En curso (#1360) |
 | 5. Funcionalidad: atajo terminal en home (#1359) | Lista, probada. Falta OK del mantenedor para abrir PR |
 
@@ -54,3 +54,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-17: PR #1360 (A-1) abierto. Informe privado A1 redactado, pendiente de envío por Turing0x.
 - 2026-10-17: kit de PoC de S1 borrado. Notas consolidadas (decisiones y lecciones). Pausa antes de A2.
 - 2026-10-18: worktree `../terax-ai-contrib` recreado (se había perdido). Sin cambios en #1358, #1360 ni #1359 (solo resumen de CodeRabbit, sin respuesta del mantenedor). Upstream sigue en `1a68067`.
+- 2026-10-18: auditoría B6 (explorador y editor) y B7 (git). 14 hallazgos F-1..F-14. Causa raíz del Source Control sin tiempo real: F-1. F-4 reproducido en repo de prueba.
