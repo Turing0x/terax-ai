@@ -5,6 +5,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { detectEol, type Eol, normalizeToLf, restoreEol } from "./eol";
+import { consumeRetarget } from "./pathRetarget";
 
 type ReadResult =
   | { kind: "text"; content: string; size: number; mtime: number }
@@ -137,8 +138,27 @@ export function useDocument({ path, onDirtyChange }: Options) {
     [path],
   );
 
+  // Path of the file the buffer was last read from; null until a text read.
+  const loadedPathRef = useRef<string | null>(null);
+
   // Load on path change.
   useEffect(() => {
+    // The same file was renamed or moved: keep buffer, dirty state, EOL and
+    // mtime (a move preserves it) instead of reloading and losing edits.
+    const from = loadedPathRef.current;
+    if (from !== null && from !== path && consumeRetarget(from, path)) {
+      loadedPathRef.current = path;
+      // The path-change cleanup cleared the autosave timer; re-arm it so a
+      // pending save lands on the new path.
+      const { autoSave: active, autoSaveDelay: delay } = autoSaveRef.current;
+      if (active && dirtyRef.current) {
+        timeoutRef.current = setTimeout(() => {
+          saveNow().catch((e) => console.error("[autosave]", e));
+        }, delay);
+      }
+      return;
+    }
+    loadedPathRef.current = null;
     let cancelled = false;
     // "Open anyway" is a per-file decision; a new path starts unforced.
     forceRef.current = false;
@@ -147,7 +167,9 @@ export function useDocument({ path, onDirtyChange }: Options) {
 
     readFromDisk(forceRef.current)
       .then((res) => {
-        if (!cancelled) adoptRead(res);
+        if (cancelled) return;
+        adoptRead(res);
+        if (res.kind === "text") loadedPathRef.current = path;
       })
       .catch((e) => {
         if (!cancelled) setDoc({ status: "error", message: String(e) });
@@ -156,15 +178,18 @@ export function useDocument({ path, onDirtyChange }: Options) {
     return () => {
       cancelled = true;
     };
-  }, [readFromDisk, adoptRead]);
+  }, [readFromDisk, adoptRead, path, saveNow]);
 
   const openAnyway = useCallback(() => {
     forceRef.current = true;
     setDoc({ status: "loading" });
     readFromDisk(true)
-      .then(adoptRead)
+      .then((res) => {
+        adoptRead(res);
+        if (res.kind === "text") loadedPathRef.current = path;
+      })
       .catch((e) => setDoc({ status: "error", message: String(e) }));
-  }, [readFromDisk, adoptRead]);
+  }, [readFromDisk, adoptRead, path]);
 
   // Skipped while dirty: never clobber unsaved edits. Re-checked when the
   // read resolves, since typing can start while it is in flight.
