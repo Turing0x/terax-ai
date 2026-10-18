@@ -1,6 +1,6 @@
 # Estado
 
-Última actualización: 2026-10-17. Upstream en `1a68067` (v0.9.0, publicada 2026-10-16).
+Última actualización: 2026-10-18. Upstream en `1a68067` (v0.9.0, publicada 2026-10-16).
 
 ## Plan
 
@@ -53,3 +53,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-17: A1 completada. Hardening A-1..A-6 en AUDIT.md. Hallazgos explotables en privado.
 - 2026-10-17: PR #1360 (A-1) abierto. Informe privado A1 redactado, pendiente de envío por Turing0x.
 - 2026-10-17: kit de PoC de S1 borrado. Notas consolidadas (decisiones y lecciones). Pausa antes de A2.
+- 2026-10-18: worktree `../terax-ai-contrib` recreado (se había perdido). Sin cambios en #1358, #1360 ni #1359 (solo resumen de CodeRabbit, sin respuesta del mantenedor). Upstream sigue en `1a68067`.
