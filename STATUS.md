@@ -55,3 +55,4 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-17: kit de PoC de S1 borrado. Notas consolidadas (decisiones y lecciones). Pausa antes de A2.
 - 2026-10-18: worktree `../terax-ai-contrib` recreado (se había perdido). Sin cambios en #1358, #1360 ni #1359 (solo resumen de CodeRabbit, sin respuesta del mantenedor). Upstream sigue en `1a68067`.
 - 2026-10-18: auditoría B6 (explorador y editor) y B7 (git). 14 hallazgos F-1..F-14. Causa raíz del Source Control sin tiempo real: F-1. F-4 reproducido en repo de prueba.
+- 2026-10-18: plan de implementación B6/B7 en `PLAN.md` (4 olas, P1-P10 + 4 issues UX).
