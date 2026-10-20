@@ -1,6 +1,6 @@
 # Estado
 
-Última actualización: 2026-10-18. Upstream en `1a68067` (v0.9.0, publicada 2026-10-16).
+Última actualización: 2026-10-20. Upstream en `1a68067` (v0.9.0, publicada 2026-10-16).
 
 ## Plan
 
@@ -29,6 +29,16 @@
 | P3 | F-9 | `fix/editor-rename-keeps-edits` | ../terax-ai-rename-dirty | PR #1369 abierto (`24e0adb`) |
 | P4 | F-5 | `fix/git-commit-timeout` | ../terax-ai-commit-timeout | PR #1370 abierto (`3b192e0`) |
 
+## Fuera de plan
+
+| PR | Problema | Rama | Worktree | Estado |
+| --- | --- | --- | --- | --- |
+| [#1375](https://github.com/crynta/terax-ai/pull/1375) | Editor no guarda sin avisar (ver `EDITOR-SAVE.md`) | `fix/editor-save-feedback` | ../terax-ai-editor-save | Abierto (`79eb0a3`). Falta prueba manual |
+
+## `local/mine` (Terax Local)
+
+`9da9b18` = `origin/main` `1a68067` + `feat/new-terminal-home` + #1358 + #1360 + #1367 + #1368 + #1369 (con fix CodeRabbit `7fa3722`) + #1370 + #1375. Pusheada a `fork`. Respaldo previo: rama local `backup/local-mine-pre-merge` (`729f826`). Build e instalación: `EDITOR-SAVE.md` § Instalar.
+
 Rust de los 4 worktrees comparte `CARGO_TARGET_DIR` del checkout principal (ahorro de disco). `node_modules` de los worktrees es symlink al principal (lockfile idéntico a upstream).
 
 ## PRs ajenos relevantes
@@ -42,6 +52,7 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 
 ## Próximos pasos
 
+0. Turing0x: instalar Terax Local desde `local/mine` (`EDITOR-SAVE.md` § Instalar), probar a mano #1375 y marcar la casilla en el PR. Si el editor vuelve a no guardar, anotar el texto exacto del toast.
 1. Turing0x: revisar y enviar el informe privado A1 a security@terax.app (borrador en `../terax-private/`). Anotar fecha de envío allí.
 2. Seguir #1358 y #1360 (CodeRabbit / mantenedor). En #1360 falta la prueba manual en `pnpm tauri dev`.
 3. Auditoría A2: comandos IPC de Tauri (validación de rutas, `WorkspaceRegistry`, capabilities). Luego A3-A7 y fase B funcional.
@@ -71,3 +82,7 @@ Antes de trabajar en un área, buscar PRs abiertos que la toquen:
 - 2026-10-18: ola 1 implementada y verificada (verificador independiente + clippy/tests). P1 rediseñado a paginación anclada al commit más reciente cargado. clippy y rustfmt instalados con OK de Turing0x.
 - 2026-10-18: ola 1 subida a fork y PRs abiertos: #1367 (P1), #1368 (P2), #1369 (P3), #1370 (P4).
 - 2026-10-18: Turing0x probó a mano P1-P4 en macOS: OK, casillas marcadas en los PRs. F-6, F-7 y F-12 no se reproducen: P8, P9 e I3 descartados.
+- 2026-10-20: carpetas movidas a `~/LocalProjects/Terax/`; worktrees reparados (`git worktree repair`), symlinks `node_modules` rehechos, `cargo clean`.
+- 2026-10-20: revisión de PRs/issues: sin respuesta humana. CodeRabbit: 1 Major en #1369 (arreglado y pusheado, `7fa3722`), 2 Minor en #1358 (pendientes).
+- 2026-10-20: bug reportado por Turing0x: el editor a veces no guarda (`.env` de un backend). Análisis en `EDITOR-SAVE.md`. Fix en `fix/editor-save-feedback` (implementador + verificador APROBADO + 2 hallazgos bajos corregidos). PR #1375 abierto.
+- 2026-10-20: todas las ramas fusionadas en `local/mine` (conflicto trivial en `useDocument.ts`). Checks: lint 0 errores, tsc OK, vitest 2041/2041, clippy OK, cargo test 670 OK. `Terax Local.app` compilado; instalación manual pendiente.

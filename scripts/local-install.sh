@@ -1,12 +1,23 @@
 #!/usr/bin/env bash
 # Build and install "Terax Local" from branch local/mine (origin/main + personal features).
-# Usage: local-install.sh [--update]   (--update: fetch + rebase onto origin/main first)
+# Usage: local-install.sh [--update]   (--update: fetch + merge origin/main first)
+# Close Terax Local before running: the app in /Applications is replaced.
+# Manual steps and troubleshooting: ../EDITOR-SAVE.md, section "Instalar".
 set -euo pipefail
 
-REPO="$HOME/LocalProjects/terax-ai"
+REPO="$HOME/LocalProjects/Terax/terax-ai"
 BRANCH="local/mine"
 # Feature branches merged into local/mine. Add new ones here.
-FEATURES=(feat/new-terminal-home)
+FEATURES=(
+  feat/new-terminal-home
+  fix/fs-write-through-symlink
+  security/ai-write-guard-user-paths
+  docs/sync-architecture-docs
+  fix/git-commit-timeout
+  fix/git-log-merge-pagination
+  fix/editor-rename-keeps-edits
+  fix/editor-save-feedback
+)
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 cd "$REPO"
@@ -26,6 +37,7 @@ for b in "${FEATURES[@]}"; do
   git merge --no-edit "$b"
 done
 
+# Lockfile as-is (no version bumps). Also resets pnpm's deps status check.
 pnpm install --frozen-lockfile
 pnpm tauri build --bundles app --config '{
   "productName": "Terax Local",
