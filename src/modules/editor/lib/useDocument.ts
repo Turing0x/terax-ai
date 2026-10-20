@@ -92,6 +92,9 @@ export function useDocument({ path, onDirtyChange }: Options) {
     savedRef.current = content;
     // Edits typed while the write was in flight must stay dirty.
     markDirty(bufferRef.current !== content);
+    // A successful write supersedes any earlier failure or conflict notice.
+    toast.dismiss(`save-error:${path}`);
+    toast.dismiss(`save-conflict:${path}`);
     notifyDocumentSaved(path);
   }, [path, markDirty]);
 
@@ -251,6 +254,15 @@ export function useDocument({ path, onDirtyChange }: Options) {
   );
 
   useEffect(() => clearAutoSaveTimer, [path, clearAutoSaveTimer]);
+
+  // The conflict toast never times out; its Overwrite action is bound to this
+  // path and must not outlive the tab or a rename.
+  useEffect(
+    () => () => {
+      toast.dismiss(`save-conflict:${path}`);
+    },
+    [path],
+  );
 
   return { doc, dirty, onChange, save, reload, adoptDiskText, openAnyway };
 }
