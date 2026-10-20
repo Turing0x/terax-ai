@@ -58,8 +58,13 @@ export function useDocument({ path, onDirtyChange }: Options) {
   }, []);
 
   const diskMtimeRef = useRef<number | null>(null);
+  // Path of the file the buffer was last read from; null until a text read.
+  const loadedPathRef = useRef<string | null>(null);
 
   const writeToDisk = useCallback(async () => {
+    // A save armed before a rename (stale toast action, in-flight saveNow)
+    // must not recreate the old path.
+    if (path !== loadedPathRef.current) return;
     const content = bufferRef.current;
     const mtime = await invoke<number>("fs_write_file", {
       path,
@@ -67,6 +72,10 @@ export function useDocument({ path, onDirtyChange }: Options) {
       workspace: currentWorkspaceEnv(),
       source: "editor",
     });
+    // Retargeted while the write was in flight: the old path's mtime and
+    // content are not the new path's baseline, and the buffer stays dirty so
+    // the re-armed save lands on the new path.
+    if (path !== loadedPathRef.current) return;
     diskMtimeRef.current = mtime;
     savedRef.current = content;
     // Edits typed while the write was in flight must stay dirty.
@@ -137,9 +146,6 @@ export function useDocument({ path, onDirtyChange }: Options) {
       }),
     [path],
   );
-
-  // Path of the file the buffer was last read from; null until a text read.
-  const loadedPathRef = useRef<string | null>(null);
 
   // Load on path change.
   useEffect(() => {
